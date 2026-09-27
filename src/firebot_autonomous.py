@@ -170,8 +170,8 @@ FORWARD_PULSE_TIME = 0.18
 # Right steer (was 0.05)
 STEER_PULSE_TIME = 0.06
 
-# Left steer (was 0.07) — reduced, left was overshooting
-STEER_PULSE_TIME_LEFT = 0.065
+# Left steer (was 0.07)
+STEER_PULSE_TIME_LEFT = 0.08
 
 # Steering power
 STEER_FULL_POWER_DUTY = 100
@@ -378,8 +378,8 @@ def move_hose(value):
 # ============================================================
 
 # Fire is "close" when its bounding box is this wide.
-# Larger value = robot drives closer before spraying. (was 400)
-FIRE_CLOSE_BOX_WIDTH_PX = 450
+# Larger value = robot drives closer before spraying. (was 350)
+FIRE_CLOSE_BOX_WIDTH_PX = 400
 
 # Confirm centered fire for 3 frames.
 SPRAY_TRIGGER_CONFIRM_FRAMES = 3
@@ -614,10 +614,13 @@ def track_and_approach():
 
         box_close_enough = fire_box_width >= FIRE_CLOSE_BOX_WIDTH_PX
 
-        screen_centered = (
-            abs(error_x) <= CENTER_TOLERANCE_X
-            and abs(error_y) <= CENTER_TOLERANCE_Y
-        )
+        # FIX: once close, the fire sits low in the frame and tilt is
+        # already at its limit, so error_y can never get under the
+        # tolerance. At close range, only X centering is required.
+        screen_centered = abs(error_x) <= CENTER_TOLERANCE_X
+
+        if not box_close_enough:
+            screen_centered = screen_centered and abs(error_y) <= CENTER_TOLERANCE_Y
 
         # ====================================================
         # FINAL BODY ALIGNMENT
@@ -792,8 +795,8 @@ try:
     print("========================================")
     print("      FIREBOT — AUTONOMOUS SEEK & HOLD")
     print("========================================")
-    print(f"Spray trigger: box>={FIRE_CLOSE_BOX_WIDTH_PX}px + screen centered + body aligned")
-    print(f"CENTER_TOLERANCE: X={CENTER_TOLERANCE_X}px Y={CENTER_TOLERANCE_Y}px")
+    print(f"Spray trigger: box>={FIRE_CLOSE_BOX_WIDTH_PX}px + X centered + body aligned")
+    print(f"CENTER_TOLERANCE: X={CENTER_TOLERANCE_X}px Y={CENTER_TOLERANCE_Y}px (Y ignored when close)")
     print(f"PAN_FORWARD: {PAN_FORWARD}")
     print(f"STEER_TOLERANCE: {STEER_TOLERANCE}")
     print(f"FORWARD PULSE: {FORWARD_PULSE_TIME}s")
