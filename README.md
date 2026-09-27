@@ -190,12 +190,12 @@ The full evaluation is in the [final report](docs/report/), including the model 
 - **Future improvements:** proportional gimbal control, and IoT alerts that keep inference on the device.
 
 ## 👥 Team
-| Name | ID | Role |
-|---|---|---|
-| Farhan Labib | 20220104029 | AI pipeline, detection, tracking and control, integration, testing |
-| Ashik Mahmud | 20220104021 | Model assistance and testing, hardware |
-| Prottoy Roy Deep | 20220104099 | Camera/servo hardware, report |
-| Maisha Ahmed | 20220104050 | Testing, documentation, literature review |
+| Name | ID | Contribution | Role |
+|---|---|---:|---|
+| Farhan Labib | 20220104029 | 40% | AI pipeline, detection, tracking and control, integration, testing |
+| Ashik Mahmud | 20220104021 | 20% | Model assistance and testing, hardware |
+| Prottoy Roy Deep | 20220104099 | 20% | Camera/servo hardware, report |
+| Maisha Ahmed | 20220104050 | 20% | Testing, documentation, literature review |
 
 **Course teachers:** Mr. Mustofa Ahmed and Ms. Akila Nipo, Department of CSE, AUST
 
