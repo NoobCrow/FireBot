@@ -1,0 +1,8 @@
+digraph G {
+  rankdir=LR; nodesep=0.2; ranksep=0.22;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=10, fillcolor="#E4ECF7", penwidth=1.1];
+  edge [penwidth=1.0, arrowsize=0.7];
+  a [label="Frame\n640×480"]; b [label="Resize +\nRGB + norm."]; c [label="NCNN\nYOLO"];
+  d [label="Decode\nboxes"]; e [label="conf\n≥ 0.40"]; f [label="NMS\nIoU 0.45"]; g [label="Top-conf\ntarget", fillcolor="#FDE2C8"];
+  a->b->c->d->e->f->g;
+}

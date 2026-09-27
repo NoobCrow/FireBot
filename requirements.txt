@@ -1,0 +1,7 @@
+numpy
+opencv-python
+ncnn
+gpiozero
+pigpio
+RPi.GPIO
+# picamera2 is installed via apt: sudo apt install python3-picamera2

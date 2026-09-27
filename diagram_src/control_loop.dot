@@ -1,0 +1,32 @@
+digraph G {
+  rankdir=TB; nodesep=0.3; ranksep=0.32;
+  node [shape=box, style="rounded,filled", fontname="Helvetica", fontsize=11, fillcolor="#E4ECF7", penwidth=1.2, width=2.6];
+  edge [fontname="Helvetica", fontsize=9.5, penwidth=1.1];
+
+  start  [label="START\nmotors off, pump off", shape=box, fillcolor="#EEEEEE"];
+  search [label="SEARCH\n8-position pan/tilt grid\n5 s per position"];
+  track  [label="TRACK\ncentre flame with pan/tilt\n(±40 px X, ±120 px Y)"];
+  close  [label="box width ≥ 450 px?", shape=diamond, fillcolor="#FFF4CC", width=2.2];
+  appr   [label="APPROACH\n|pan| > 0.25 → steer pulse\nelse forward pulse (0.18 s)", fillcolor="#DDF0DD"];
+  align  [label="body aligned?\n|pan| ≤ 0.25", shape=diamond, fillcolor="#FFF4CC", width=2.2];
+  corr   [label="FINAL CORRECTION\nleft 0.065 s / right 0.06 s", fillcolor="#DDF0DD"];
+  hold   [label="HOLD\nwait until centred\nfor 3 frames", fillcolor="#FDE2C8"];
+  spray  [label="SPRAY\npump ON, hose sweep\n20 epochs, chassis stopped", fillcolor="#F9D5D5"];
+  lost   [label="REACQUIRE\n15 frames without fire →\n4-point local grid", fillcolor="#EEEEEE"];
+
+  start -> search;
+  search -> search [label=" no fire"];
+  search -> track [label=" fire detected"];
+  track -> close;
+  close -> appr [label=" no"];
+  appr -> track;
+  close -> align [label=" yes"];
+  align -> corr [label=" no"];
+  corr -> track;
+  align -> hold [label=" yes"];
+  hold -> spray [label=" confirmed"];
+  spray -> track [label=" epochs done"];
+  track -> lost [label=" fire lost", style=dashed];
+  lost -> track [label=" found", style=dashed];
+  lost -> search [label=" failed", style=dashed];
+}
